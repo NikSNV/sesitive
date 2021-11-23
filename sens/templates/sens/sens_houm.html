@@ -1,0 +1,31 @@
+
+{% block content %}
+<h1>{{title}}</h1>
+
+<form action="{% url 'get_sens' %}" method="post">
+    {% csrf_token %}
+    <a role="button"  href="{% url 'get_sens' %}">Я загадал!</a>
+
+    <div class="form-error">{{ form.non_field_errors }}</div>
+
+{% for f in form %}
+<p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+<div class="form-error">{{ f.errors }}</div>
+{% endfor %}
+
+    {% if sens1 %}
+      <h3>Первый экстрасенс определил (история): {{ sens1 }}</h3>
+        <h5>Его уровень достоверности от нуля: {{ sens1True }}</h5>
+      <h3>Второй экстрасенс определил (история): {{ sens2 }}</h3>
+        <h5>Его уровень достоверности от нуля: {{ sens2True }}</h5>
+
+
+    {% endif %}
+    {% if number %}
+      <h3>История введенных чисел: {{ number }}</h3>
+    {% endif %}
+
+    <button type="submit">Отправить на проверку экстрасенсам</button>
+</form>
+
+{% endblock %}
